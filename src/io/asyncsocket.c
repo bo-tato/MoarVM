@@ -81,10 +81,6 @@ static void on_read(uv_stream_t *handle, ssize_t nread, const uv_buf_t *buf) {
         if (buf->base)
             MVM_free(buf->base);
         MVM_io_eventloop_remove_active_work(tc, &(ri->work_idx));
-        if (conn_handle && !uv_is_closing(conn_handle)) {
-            handle_data->handle = NULL;
-            uv_close(conn_handle, free_on_close_cb);
-        }
     }
     MVM_repr_push_o(tc, t->body.queue, arr);
 }
